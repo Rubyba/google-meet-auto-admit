@@ -1,0 +1,57 @@
+body {
+    margin: 0;
+}
+
+.container {
+    background-color: #ffffffd2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 240px;
+    height: 150px;
+    position: relative;
+}
+
+.container .title {
+    font-size: 17px;
+    font-weight: 600;
+    margin: .5rem 0 .2rem 0;
+    color: rgb(34, 34, 34);
+}
+
+.container .sub-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: rgb(110, 121, 126);
+}
+
+.container .status-btn {
+    height: 30px;
+    width: 100px;
+    background-color: #3ebe3e;
+    border-radius: 3px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: rgba(99, 99, 99, 0.2) 1px 1px 4px 0px;
+}
+
+.container .status-btn:hover {
+    box-shadow: rgba(99, 99, 99, 0.3) 1px 1px 2px 0px;
+}
+
+.container .bottom-border {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 5px;
+    width: 240px;
+}

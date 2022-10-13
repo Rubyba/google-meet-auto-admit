@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "Google Meet Auto Admit 自動允許加入工具",
+  "description": "Google Meet 自動接受所有加入者請求",
+  "version": "1.0",
+  "permissions": ["tabs", "declarativeContent", "scripting", "storage"],
+  "host_permissions": ["https://meet.google.com/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://meet.google.com/*"],
+      "js": ["contentScript.js"]
+    }
+  ],
+  "action": {
+    "default_icon": {
+      "16": "images/icon.png",
+      "32": "images/icon.png",
+      "48": "images/icon.png",
+      "128": "images/icon.png"
+    },
+    "default_title": "Google Meet Auto Admit 自動允許加入工具",
+    "default_popup": "popup.html"
+  }
+}
