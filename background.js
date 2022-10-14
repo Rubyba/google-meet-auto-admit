@@ -31,7 +31,7 @@ const setExecuteInterval = () => {
           target: { tabId: tabId },
           files: ['contentScript.js'],
         }, () => { });
-    }, 800);
+    }, 1000);
     saveIntervalId(intervalId);
   });
 }
@@ -46,7 +46,6 @@ chrome.storage.onChanged.addListener((changes, namespace) => {
         clearInterval(intervalId);
       });
       intervalId = null;
-      chrome.alarms.clearAll();
       saveIntervalId(intervalId);
     }
   }
@@ -62,14 +61,12 @@ var alarmInfo = {
 chrome.alarms.clearAll();
 
 chrome.alarms.onAlarm.addListener((alarm) => {
-  chrome.storage.sync.get("status", ({ status }) => {
-    chrome.storage.sync.get("intervalId", ({ intervalId }) => {
+  chrome.storage.sync.get(["status", "intervalId"], ({ status, intervalId }) => {
       if (status) {
         clearInterval(intervalId);
         setExecuteInterval();
       }
     });
-  });
 });
 
 chrome.alarms.create('checkExecute', alarmInfo);
