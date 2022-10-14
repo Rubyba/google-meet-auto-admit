@@ -1,48 +1,38 @@
-const red = "#e83b35";
-const green = "#3ebe3e";
 
-const saveIntervalId = (value) => {
-  chrome.storage.sync.set({ intervalId: value }, () => {});
-};
-
-const handleClick = () => {
-  chrome.storage.sync.get("intervalId", ({ intervalId }) => {
-    if (!intervalId) {
-      intervalId = setInterval(() => {
-        chrome.tabs.query({active: true}, (tabs) => {
-          chrome.scripting.executeScript(
-            {
-              target: {tabId: tabs[0].id},
-              files: ['contentScript.js'],
-            }, () => {});
-        });
-      }, 500);
-    } else {
-      clearInterval(intervalId);
-      intervalId = null;
-    }
-    saveIntervalId(intervalId);
-    updateStyles(intervalId);
+const saveStatus = (value) => {
+  
+  const query = { active: true, currentWindow: true };
+  chrome.tabs.query(query, (tabs) => {
+    var currentTab = tabs[0]; 
+    chrome.storage.sync.set({ status: value, tabId: currentTab.id }, () => {});
   });
 };
 
 const border = document.querySelector(".bottom-border");
-const btn = document.querySelector("#status-btn");
+const toggle = document.querySelector("#toggle");
 
 const updateStyles = (status) => {
   if (status) {
-    btn.innerText = "STOP";
-    btn.style.backgroundColor = red;
-    border.style.background = 'linear-gradient(90deg, #ffd07b 0%, #f95b5b 100%)';
+    border.style.background = 'linear-gradient(90deg, rgb(49 136 255) 0%, rgb(103 143 255) 39%, rgb(255 153 199) 70%, rgb(255 134 134) 100%)';
+    border.style.boxShadow = 'rgb(255 255 255) 0px 0px 10px';
   } else {
-    btn.innerText = "START";
-    btn.style.backgroundColor = green;
-    border.style.background = 'linear-gradient(90deg, #deff79 0%, #51d361 100%)';
+    border.style.background = 'linear-gradient(90deg, rgb(92 92 92) 0%, rgb(100 100 100) 100%)';
+    border.style.boxShadow = 'none';
   }
 };
 
-btn.addEventListener("click", handleClick);
+toggle.addEventListener("click", (event) => {
+  updateStyles(toggle.checked);
+  saveStatus(toggle.checked);
+});
 
 chrome.storage.sync.get("intervalId", ({ intervalId }) => {
-  updateStyles(intervalId);
+  if(intervalId) {
+    toggle.checked = true;
+    updateStyles(true);
+  } else {
+    toggle.checked = false;
+    updateStyles(false);
+  }
 });
+

@@ -1,9 +1,9 @@
 {
   "manifest_version": 3,
   "name": "Google Meet Auto Admit 自動允許加入工具",
-  "description": "Google Meet 自動接受所有加入者請求",
+  "description": "Google Meet 自動接受所有加入要求",
   "version": "1.0",
-  "permissions": ["tabs", "declarativeContent", "scripting", "storage"],
+  "permissions": ["tabs", "declarativeContent", "scripting", "storage", "alarms"],
   "host_permissions": ["https://meet.google.com/*"],
   "background": {
     "service_worker": "background.js"
